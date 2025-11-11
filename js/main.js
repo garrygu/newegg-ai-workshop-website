@@ -58,28 +58,76 @@ window.addEventListener('scroll', () => {
     lastScroll = currentScroll;
 });
 
-// Mobile menu toggle (if needed in future)
+// Mobile menu toggle
 function initMobileMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    if (window.innerWidth <= 768 && !document.querySelector('.menu-toggle')) {
-        const menuToggle = document.createElement('button');
-        menuToggle.className = 'menu-toggle';
-        menuToggle.innerHTML = '☰';
-        menuToggle.style.cssText = `
-            background: none;
-            border: none;
-            color: var(--newegg-text);
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: none;
-        `;
+    const menuOverlay = document.querySelector('.menu-overlay');
+    const menuIcon = menuToggle?.querySelector('.menu-icon');
+    const menuClose = menuToggle?.querySelector('.menu-close');
+    
+    if (!menuToggle || !navMenu) return;
+    
+    function toggleMenu() {
+        const isActive = navMenu.classList.toggle('active');
+        menuOverlay?.classList.toggle('active', isActive);
         
-        document.querySelector('.navbar .container').appendChild(menuToggle);
+        // Update button state
+        if (menuToggle) {
+            menuToggle.setAttribute('aria-expanded', isActive);
+            if (menuIcon) menuIcon.style.display = isActive ? 'none' : 'inline';
+            if (menuClose) menuClose.style.display = isActive ? 'inline' : 'none';
+        }
         
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = isActive ? 'hidden' : '';
     }
+    
+    function closeMenu() {
+        navMenu.classList.remove('active');
+        menuOverlay?.classList.remove('active');
+        if (menuToggle) {
+            menuToggle.setAttribute('aria-expanded', 'false');
+            if (menuIcon) menuIcon.style.display = 'inline';
+            if (menuClose) menuClose.style.display = 'none';
+        }
+        document.body.style.overflow = '';
+    }
+    
+    // Toggle menu on button click
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
+    });
+    
+    // Close menu when clicking overlay
+    menuOverlay?.addEventListener('click', closeMenu);
+    
+    // Close menu when clicking a menu link
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            // Small delay to allow navigation
+            setTimeout(closeMenu, 100);
+        });
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+    
+    // Close menu on window resize if it becomes desktop size
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            if (window.innerWidth > 768 && navMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        }, 250);
+    });
 }
 
 // Initialize on load
