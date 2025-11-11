@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Newegg AI Workshop</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" style="display: flex; align-items: center; gap: var(--spacing-sm); text-decoration: none; color: inherit;">
+                    <img src="assets/images/newegg-logo.svg" alt="Newegg" class="newegg-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span class="logo" style="display: none;">🎓</span>
+                    <span class="brand-text">Newegg AI Workshop</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="register.html" class="btn-primary active">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Registration Section -->
+    <section class="hero" style="min-height: auto; padding: var(--spacing-2xl) 0;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Register for Explorer Level</h2>
+                <p>Join our <a href="https://github.com/garrygu/newegg-ai-workshop/tree/main/lv0-explorer" target="_blank" style="color: var(--newegg-orange); text-decoration: underline;">Explorer Level workshop</a> - No coding experience needed!</p>
+            </div>
+
+            <!-- Workshop Details -->
+            <div class="registration-status" style="border-color: var(--newegg-orange); margin-bottom: var(--spacing-xl);">
+                <h3 style="color: var(--newegg-orange); margin-bottom: var(--spacing-md); font-size: 1.2rem;">Workshop Details</h3>
+                <div style="margin-bottom: var(--spacing-md);">
+                    <p style="color: var(--newegg-text); margin-bottom: var(--spacing-xs);"><strong>Session Dates:</strong></p>
+                    <ul style="list-style: none; color: var(--newegg-text-secondary); line-height: 1.8;">
+                        <li>• Saturday, November 15, 2025</li>
+                        <li>• Saturday, November 22, 2025</li>
+                        <li>• Saturday, December 13, 2025</li>
+                        <li>• Saturday, December 20, 2025</li>
+                    </ul>
+                </div>
+                <div style="margin-bottom: var(--spacing-md);">
+                    <p style="color: var(--newegg-text); margin-bottom: var(--spacing-xs);"><strong>Time:</strong></p>
+                    <p style="color: var(--newegg-text-secondary);">9:30 AM – 11:30 AM (each session)</p>
+                </div>
+                <div style="margin-bottom: var(--spacing-md);">
+                    <p style="color: var(--newegg-text); margin-bottom: var(--spacing-xs);"><strong>📍 Location:</strong></p>
+                    <p style="color: var(--newegg-text-secondary);">
+                        Newegg Diamond Bar Office<br>
+                        21688 Gateway Center Dr, Diamond Bar, CA 91765
+                    </p>
+                </div>
+                <div style="background: rgba(255, 102, 0, 0.1); border-left: 3px solid var(--newegg-orange); padding: var(--spacing-md); border-radius: 4px; margin-top: var(--spacing-md);">
+                    <p style="color: var(--newegg-text); margin-bottom: var(--spacing-xs);"><strong>⚠️ Important:</strong></p>
+                    <p style="color: var(--newegg-text-secondary); margin: 0;">
+                        Students must be able to commit to attending all four sessions to participate in the workshop.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Registration Status with Countdown (merged) -->
+            <div id="registrationStatusSection" class="registration-status" style="border-color: var(--newegg-orange); margin-bottom: var(--spacing-xl);">
+                <!-- Content will be dynamically updated by registration-status.js -->
+            </div>
+
+            <!-- Registration Form -->
+            <div class="form-container">
+                <form id="registrationForm">
+                    <div id="formSuccess" class="form-success" style="display: none;">
+                        Thank you for registering! We'll send confirmation emails to both the student and parent/guardian 
+                        with workshop details and next steps. If we've reached capacity (12 students), you'll be notified 
+                        about waitlist status.
+                    </div>
+
+                    <h3 style="color: var(--newegg-orange); margin-bottom: var(--spacing-md); font-size: 1.1rem; border-bottom: 1px solid var(--newegg-gray); padding-bottom: var(--spacing-sm);">Student Information</h3>
+
+                    <div class="form-group">
+                        <label for="studentName">Student's Full Name *</label>
+                        <input type="text" id="studentName" name="studentName" required 
+                               placeholder="John Doe">
+                        <small>The name of the student attending the workshop</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentEmail">Student's Email Address *</label>
+                        <input type="email" id="studentEmail" name="studentEmail" required 
+                               placeholder="student@example.com"
+                               autocomplete="email">
+                        <small>We'll use this to send workshop updates and materials to the student</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentGrade">Student's Grade Level *</label>
+                        <select id="studentGrade" name="studentGrade" required>
+                            <option value="">Select grade level</option>
+                            <option value="9_or_below">9th Grade or Below</option>
+                            <option value="10">10th Grade</option>
+                            <option value="11">11th Grade</option>
+                            <option value="12_or_above">12th Grade or Above</option>
+                        </select>
+                        <small>This workshop is designed for high school students, but we welcome younger and older learners</small>
+                    </div>
+
+                    <h3 style="color: var(--newegg-orange); margin: var(--spacing-xl) 0 var(--spacing-md); font-size: 1.1rem; border-bottom: 1px solid var(--newegg-gray); padding-bottom: var(--spacing-sm);">Parent/Guardian Information</h3>
+
+                    <div class="form-group">
+                        <label for="parentName">Parent/Guardian Full Name *</label>
+                        <input type="text" id="parentName" name="parentName" required 
+                               placeholder="Jane Smith">
+                        <small>Name of the parent or guardian registering the student</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parentEmail">Parent/Guardian Email Address *</label>
+                        <input type="email" id="parentEmail" name="parentEmail" required 
+                               placeholder="parent@example.com"
+                               autocomplete="email">
+                        <small>We'll use this to send confirmation and important updates</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parentPhone">Parent/Guardian Phone Number *</label>
+                        <input type="tel" id="parentPhone" name="parentPhone" required 
+                               placeholder="(555) 123-4567"
+                               autocomplete="tel"
+                               maxlength="14">
+                        <small>For urgent updates and emergency contact (10-digit US phone number)</small>
+                    </div>
+
+                    <h3 style="color: var(--newegg-orange); margin: var(--spacing-xl) 0 var(--spacing-md); font-size: 1.1rem; border-bottom: 1px solid var(--newegg-gray); padding-bottom: var(--spacing-sm);">Workshop Information</h3>
+
+                    <div class="form-group">
+                        <label for="workshopLevel">Workshop Level *</label>
+                        <input type="text" id="workshopLevel" name="workshopLevel" value="Explorer Level (YouthAI)" readonly 
+                               style="background: var(--newegg-gray); cursor: not-allowed;">
+                        <small>Currently registering for Explorer Level only</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="studentExperience">Student's Experience with Coding/AI *</label>
+                        <select id="studentExperience" name="studentExperience" required>
+                            <option value="">Select experience level</option>
+                            <option value="none" selected>No coding experience (Perfect for Explorer Level!)</option>
+                            <option value="some">Some basic computer skills</option>
+                            <option value="intermediate">Some coding experience</option>
+                        </select>
+                        <small>Explorer Level is designed for complete beginners</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="motivation">Student's Interest, Expectations, or Suggestions</label>
+                        <textarea id="motivation" name="motivation" 
+                                  placeholder="Share the student's interests in AI, what they hope to learn, or any specific expectations or suggestions you have for the workshop..."></textarea>
+                        <small>
+                            <strong>Optional:</strong> You can share what sparked the student's interest in AI, what they hope to create or learn, 
+                            or any specific expectations or suggestions you have for the workshop. This helps us tailor the experience.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="terms" required style="width: auto; margin-right: var(--spacing-xs);">
+                            I agree to the <a href="terms.html" target="_blank" style="color: var(--newegg-orange); text-decoration: underline;">terms and conditions</a> *
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-orange btn-large" style="width: 100%;">
+                        <span id="submitText">Register for Explorer Level</span>
+                        <span id="submitSpinner" class="spinner" style="display: none; margin-left: var(--spacing-sm);"></span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Additional Info -->
+            <div style="max-width: 600px; margin: var(--spacing-xl) auto 0; text-align: center; color: var(--newegg-text-secondary);">
+                <p style="margin-bottom: var(--spacing-md);">
+                    <strong style="color: var(--newegg-text);">What happens next?</strong>
+                </p>
+                <ul style="list-style: none; text-align: left; max-width: 500px; margin: 0 auto;">
+                    <li style="margin-bottom: var(--spacing-sm); padding-left: var(--spacing-md); position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--newegg-orange);">1.</span>
+                        Confirmation emails will be sent to both student and parent/guardian
+                    </li>
+                    <li style="margin-bottom: var(--spacing-sm); padding-left: var(--spacing-md); position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--newegg-orange);">2.</span>
+                        If capacity is reached, you'll be notified about waitlist status
+                    </li>
+                    <li style="margin-bottom: var(--spacing-sm); padding-left: var(--spacing-md); position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--newegg-orange);">3.</span>
+                        Pre-workshop materials and preparation guide will be sent before the first session
+                    </li>
+                    <li style="margin-bottom: var(--spacing-sm); padding-left: var(--spacing-md); position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--newegg-orange);">4.</span>
+                        Join us for all four sessions starting November 15, 2025!
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-md);">
+                        <img src="assets/images/newegg-logo.svg" alt="Newegg" class="newegg-logo" style="max-height: 40px; width: auto; display: block;" onerror="this.style.display='none';">
+                        <div>
+                            <h4 style="margin: 0;">Newegg AI Workshop</h4>
+                        </div>
+                    </div>
+                    <p>Empowering the next generation of AI creators through hands-on learning.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="register.html">Register</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="../README.md" target="_blank">Curriculum</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>
+                            <a href="mailto:ai-workshop@newegg.com" style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                                <span>📧</span>
+                                <span>ai-workshop@newegg.com</span>
+                            </a>
+                        </li>
+                        <li style="margin-top: var(--spacing-sm);">
+                            <strong style="color: var(--newegg-text);">Location:</strong><br>
+                            <span style="color: var(--newegg-text-secondary); font-size: 0.9rem;">
+                                Newegg Diamond Bar Office<br>
+                                21688 Gateway Center Dr<br>
+                                Diamond Bar, CA 91765
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/garrygu/newegg-ai-workshop/blob/main/lv0-explorer/README.md" target="_blank">Explorer Level</a></li>
+                        <li><a href="https://github.com/garrygu/newegg-ai-workshop/blob/main/lv1-beginner/README.md" target="_blank">Beginner Level</a></li>
+                        <li><a href="https://github.com/garrygu/newegg-ai-workshop" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Newegg AI Workshop. All rights reserved. | Sponsored by <a href="https://www.newegg.com" target="_blank" style="color: var(--newegg-orange);">Newegg</a></p>
+                <p style="margin-top: var(--spacing-sm); font-size: 0.85rem; color: var(--newegg-text-muted);">
+                    <span style="display: inline-flex; align-items: center; gap: var(--spacing-xs);">
+                        <span>🤖</span>
+                        <span>Built with AI coding tools</span>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Database Adapters (load only what you need) -->
+    <!-- IMPORTANT: Load order matters! db-adapter.js must load before adapter files -->
+    
+    <!-- Database Base Class (must load first) -->
+    <script src="js/db-adapter.js"></script>
+    
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Database Adapters (load after base class) -->
+    <script src="js/adapters/supabase-adapter.js"></script>
+    
+    <!-- For MySQL (uncomment when needed) -->
+    <!-- <script src="js/adapters/mysql-adapter.js"></script> -->
+    
+    <!-- For MSSQL (uncomment when needed) -->
+    <!-- <script src="js/adapters/mssql-adapter.js"></script> -->
+    
+    <!-- Database Configuration -->
+    <script src="js/config.js"></script>
+    
+    <!-- Database Factory (load after adapters) -->
+    <script src="js/db-factory.js"></script>
+    
+    <!-- Rate Limiting (load first for security) -->
+    <script src="js/rate-limiter.js"></script>
+    
+    <!-- Form Validation -->
+    <script src="js/form-validation.js"></script>
+    
+    <!-- Registration Status (deadline management) -->
+    <script src="js/registration-status.js"></script>
+    
+    <!-- Main Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/forms.js"></script>
+    
+    <script>
+        // Countdown is automatically started by registration-status.js
+        // It updates every second to show real-time countdown
+    </script>
+</body>
+</html>
+

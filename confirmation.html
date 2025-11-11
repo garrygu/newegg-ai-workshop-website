@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Confirmed! - Newegg AI Workshop</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .confirmation-hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confetti-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--newegg-orange);
+            animation: confetti-fall linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .success-icon {
+            font-size: 8rem;
+            animation: bounce-in 0.8s ease-out;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        @keyframes bounce-in {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .confirmation-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: var(--spacing-2xl);
+        }
+
+        .confirmation-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(135deg, #FFFFFF 0%, #FF6600 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ai-facts {
+            background: var(--newegg-dark);
+            border: 1px solid var(--newegg-gray);
+            border-radius: 12px;
+            padding: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .ai-fact-card {
+            background: var(--newegg-black);
+            border: 1px solid var(--newegg-gray);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .ai-fact-card:hover {
+            border-color: var(--newegg-orange);
+            transform: translateX(5px);
+        }
+
+        .ai-fact-card h4 {
+            color: var(--newegg-orange);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .ai-fact-card p {
+            color: var(--newegg-text-secondary);
+            margin: 0;
+        }
+
+        .next-steps {
+            background: linear-gradient(135deg, var(--newegg-dark) 0%, var(--newegg-black) 100%);
+            border: 2px solid var(--newegg-orange);
+            border-radius: 12px;
+            padding: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background: rgba(255, 102, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        .step-number {
+            background: var(--newegg-orange);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: var(--newegg-text);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .step-content p {
+            color: var(--newegg-text-secondary);
+            margin: 0;
+        }
+
+        .ai-animation {
+            font-size: 4rem;
+            margin: var(--spacing-xl) 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+        .celebration-emoji {
+            font-size: 3rem;
+            display: inline-block;
+            animation: rotate 3s linear infinite;
+            margin: 0 var(--spacing-xs);
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .workshop-details-box {
+            background: var(--newegg-dark);
+            border: 1px solid var(--newegg-gray);
+            border-radius: 12px;
+            padding: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--newegg-gray);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--newegg-text-secondary);
+        }
+
+        .detail-value {
+            color: var(--newegg-text);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="index.html" style="display: flex; align-items: center; gap: var(--spacing-sm); text-decoration: none; color: inherit;">
+                    <img src="assets/images/newegg-logo.svg" alt="Newegg" class="newegg-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span class="logo" style="display: none;">🎓</span>
+                    <span class="brand-text">Newegg AI Workshop</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Confirmation Hero -->
+    <section class="confirmation-hero">
+        <div class="confetti-container" id="confettiContainer"></div>
+        <div class="container">
+            <div class="confirmation-content">
+                <div class="success-icon">🎉</div>
+                <h1 class="confirmation-title">You're All Set!</h1>
+                <p style="font-size: 1.3rem; color: var(--newegg-text-secondary); margin-bottom: var(--spacing-lg);">
+                    Your registration for the <strong style="color: var(--newegg-orange);">Explorer Level</strong> workshop has been confirmed!
+                </p>
+                
+                <div class="ai-animation">
+                    🤖✨🧠
+                </div>
+
+                <div style="background: rgba(255, 102, 0, 0.1); border: 2px solid var(--newegg-orange); border-radius: 8px; padding: var(--spacing-lg); margin: var(--spacing-xl) 0;">
+                    <p style="color: var(--newegg-text); font-size: 1.1rem; margin: 0;">
+                        <span class="celebration-emoji">🎊</span>
+                        Welcome to the AI adventure!
+                        <span class="celebration-emoji">🚀</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workshop Details -->
+    <section class="levels-section">
+        <div class="container">
+            <div class="workshop-details-box">
+                <h2 style="color: var(--newegg-orange); margin-bottom: var(--spacing-lg);">Your Workshop Details</h2>
+                
+                <div class="detail-row">
+                    <span class="detail-label">Workshop Level:</span>
+                    <span class="detail-value">🌱 Explorer Level</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Session Dates:</span>
+                    <span class="detail-value">Nov 15, Nov 22, Dec 13, Dec 20</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Time:</span>
+                    <span class="detail-value">9:30 AM - 11:30 AM (each session)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Location:</span>
+                    <span class="detail-value">Newegg Diamond Bar Office</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Status:</span>
+                    <span class="detail-value" id="registrationStatus">Registered</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Steps -->
+    <section class="features-section">
+        <div class="container">
+            <div class="next-steps">
+                <h2 style="color: var(--newegg-orange); margin-bottom: var(--spacing-lg); text-align: center;">
+                    What Happens Next?
+                </h2>
+                
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>📧 Confirmation Emails</h4>
+                        <p>You'll receive confirmation emails at both the student and parent/guardian email addresses with all the details you need.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>📚 Pre-Workshop Materials</h4>
+                        <p>We'll send you preparation materials and a welcome guide before the first session so you can get ready for the adventure!</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>🎯 Mark Your Calendar</h4>
+                        <p>Save the dates: November 15, 22, December 13, and 20. All sessions are from 9:30 AM to 11:30 AM.</p>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>🚀 Get Ready to Create!</h4>
+                        <p>Bring your curiosity and creativity. We'll provide everything else you need to start building with AI!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun AI Facts -->
+    <section class="levels-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Did You Know? 🤔</h2>
+                <p>Fun facts about AI while you wait for the workshop!</p>
+            </div>
+            
+            <div class="ai-facts">
+                <div class="ai-fact-card" onclick="this.style.transform='scale(1.05)'">
+                    <h4>🧠 AI Brain Power</h4>
+                    <p>AI can process information millions of times faster than humans, but it still needs humans to teach it what's important!</p>
+                </div>
+                
+                <div class="ai-fact-card" onclick="this.style.transform='scale(1.05)'">
+                    <h4>🎨 Creative AI</h4>
+                    <p>AI can create art, music, and stories - but the best creations happen when humans and AI work together!</p>
+                </div>
+                
+                <div class="ai-fact-card" onclick="this.style.transform='scale(1.05)'">
+                    <h4>📱 AI Everywhere</h4>
+                    <p>You use AI every day! From phone cameras that recognize faces to video recommendations, AI is already part of your life.</p>
+                </div>
+                
+                <div class="ai-fact-card" onclick="this.style.transform='scale(1.05)'">
+                    <h4>🚀 Future of AI</h4>
+                    <p>By learning AI now, you're preparing for jobs that don't even exist yet. You're ahead of the curve!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive AI Demo -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Try This While You Wait! 🎮</h2>
+                <p>Explore AI tools before the workshop starts</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Create AI Art</h3>
+                    <p>Try <a href="https://chat.openai.com/?model=gpt-4o" target="_blank" style="color: var(--newegg-orange);">ChatGPT's DALL·E</a> to generate images from text!</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Chat with AI</h3>
+                    <p>Ask <a href="https://chat.openai.com" target="_blank" style="color: var(--newegg-orange);">ChatGPT</a> to explain AI concepts in simple terms!</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Explore AI Tools</h3>
+                    <p>Check out <a href="https://github.com/garrygu/newegg-ai-workshop/blob/main/lv0-explorer/README.md" target="_blank" style="color: var(--newegg-orange);">Explorer Level tools</a> to get familiar!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Questions Before the Workshop?</h2>
+                <p>We're here to help! Reach out if you have any questions.</p>
+                <p style="margin-top: var(--spacing-md);">
+                    <a href="mailto:ai-workshop@newegg.com" style="color: var(--newegg-orange); font-size: 1.1rem; text-decoration: underline;">
+                        📧 ai-workshop@newegg.com
+                    </a>
+                </p>
+                <div style="display: flex; gap: var(--spacing-md); justify-content: center; flex-wrap: wrap; margin-top: var(--spacing-lg);">
+                    <a href="index.html" class="btn btn-outline">Back to Home</a>
+                    <a href="about.html" class="btn btn-orange">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-md);">
+                        <img src="assets/images/newegg-logo.svg" alt="Newegg" class="newegg-logo" style="max-height: 40px; width: auto; display: block;" onerror="this.style.display='none';">
+                        <div>
+                            <h4 style="margin: 0;">Newegg AI Workshop</h4>
+                        </div>
+                    </div>
+                    <p>Empowering the next generation of AI creators through hands-on learning.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="register.html">Register</a></li>
+                        <li><a href="../README.md" target="_blank">Curriculum</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                    <ul>
+                        <li>
+                            <a href="mailto:ai-workshop@newegg.com" style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                                <span>📧</span>
+                                <span>ai-workshop@newegg.com</span>
+                            </a>
+                        </li>
+                        <li style="margin-top: var(--spacing-sm);">
+                            <strong style="color: var(--newegg-text);">Location:</strong><br>
+                            <span style="color: var(--newegg-text-secondary); font-size: 0.9rem;">
+                                Newegg Diamond Bar Office<br>
+                                21688 Gateway Center Dr<br>
+                                Diamond Bar, CA 91765
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://github.com/garrygu/newegg-ai-workshop/blob/main/lv0-explorer/README.md" target="_blank">Explorer Level</a></li>
+                        <li><a href="https://github.com/garrygu/newegg-ai-workshop/blob/main/lv1-beginner/README.md" target="_blank">Beginner Level</a></li>
+                        <li><a href="https://github.com/garrygu/newegg-ai-workshop" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Newegg AI Workshop. All rights reserved. | Sponsored by <a href="https://www.newegg.com" target="_blank" style="color: var(--newegg-orange);">Newegg</a></p>
+                <p style="margin-top: var(--spacing-sm); font-size: 0.85rem; color: var(--newegg-text-muted);">
+                    <span style="display: inline-flex; align-items: center; gap: var(--spacing-xs);">
+                        <span>🤖</span>
+                        <span>Built with AI coding tools</span>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Create confetti animation
+        function createConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#FF6600', '#22c55e', '#3b82f6', '#f59e0b', '#ec4899'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.opacity = Math.random();
+                container.appendChild(confetti);
+            }
+        }
+
+        // Check URL parameters for registration status
+        function checkRegistrationStatus() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const studentName = urlParams.get('student');
+            
+            if (status === 'waitlisted') {
+                const statusElement = document.getElementById('registrationStatus');
+                if (statusElement) {
+                    statusElement.innerHTML = '<span style="color: #ff4444;">Waitlisted</span>';
+                }
+                
+                // Update confirmation message
+                const confirmationMsg = document.querySelector('.confirmation-content p');
+                if (confirmationMsg) {
+                    confirmationMsg.innerHTML = `
+                        You've been added to the <strong style="color: var(--newegg-orange);">waitlist</strong>! 
+                        We'll notify you if a spot becomes available.
+                    `;
+                }
+            }
+            
+            if (studentName) {
+                const title = document.querySelector('.confirmation-title');
+                if (title) {
+                    title.textContent = `Welcome, ${decodeURIComponent(studentName)}!`;
+                }
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            createConfetti();
+            checkRegistrationStatus();
+            
+            // Add click animations to AI fact cards
+            document.querySelectorAll('.ai-fact-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
