@@ -4,7 +4,7 @@
 class RateLimiter {
     constructor() {
         this.storageKey = 'newegg_ai_registration_attempts';
-        this.maxAttempts = 5; // Maximum attempts per time window
+        this.maxAttempts = 10; // Maximum attempts per time window
         this.timeWindow = 15 * 60 * 1000; // 15 minutes in milliseconds
         this.lockoutDuration = 60 * 60 * 1000; // 1 hour lockout after max attempts
     }
