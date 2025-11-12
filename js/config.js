@@ -37,7 +37,7 @@ const WORKSHOP_EVENTS = {
         maxCapacity: 12,
         startDate: '2025-11-15',
         endDate: '2025-12-20',
-        registrationDeadline: '2025-11-11', // Registration closes on this date (YYYY-MM-DD)
+        registrationDeadline: '2025-11-12', // Registration closes on this date (YYYY-MM-DD)
         registrationDeadlineTime: '23:59' // Time on deadline day (24-hour format, optional)
     }
     // Add more events here as needed
