@@ -1,0 +1,11 @@
+# Cache control for JavaScript files (Netlify)
+/js/*.js
+  Cache-Control: no-cache, must-revalidate
+
+# Cache control for static assets
+/assets/*
+  Cache-Control: public, max-age=31536000
+
+/css/*
+  Cache-Control: public, max-age=31536000
+
